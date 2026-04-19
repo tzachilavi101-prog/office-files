@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>לביא, ניסים-שלו | משרד עורכי דין</title>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Assistant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { min-height: 100vh; }
+
+  body {
+    direction: rtl;
+    width: 100%;
+    position: relative;
+    overflow-x: hidden;
+    background: #0F172A;
+    color: white;
+    font-family: 'Assistant', sans-serif;
+  }
+
+  .bg-mesh {
+    position: fixed; inset: 0; opacity: 0.6; pointer-events: none; z-index: 1;
+    background:
+      radial-gradient(ellipse 70% 50% at 85% 10%, rgba(205,127,50,0.14), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 10% 90%, rgba(205,127,50,0.06), transparent 60%);
+  }
+
+  .bg-grain {
+    position: fixed; inset: 0; opacity: 0.035; mix-blend-mode: overlay;
+    pointer-events: none; z-index: 2;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.8'/%3E%3C/svg%3E");
+  }
+
+  .bg-edge-line {
+    position: fixed; right: 0; top: 0; bottom: 0; width: 1px; pointer-events: none; z-index: 3;
+    background: linear-gradient(to bottom, transparent, rgba(205,127,50,0.3), transparent);
+  }
+
+  .header {
+    position: relative; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 32px;
+    animation: fadeInDown 0.6s ease-out;
+  }
+  @media (min-width: 768px) { .header { padding: 24px 64px; } }
+  @media (min-width: 1024px) { .header { padding: 24px 96px; } }
+
+  .logo-wrap { display: flex; align-items: center; gap: 16px; animation: fadeIn 0.8s ease-out; }
+  .logo-text { display: flex; flex-direction: column; align-items: flex-end; }
+  .logo-firm {
+    font-family: 'Frank Ruhl Libre', serif; font-weight: 500;
+    font-size: 20px; color: white; line-height: 1; letter-spacing: 0.01em;
+  }
+  @media (min-width: 768px) { .logo-firm { font-size: 24px; } }
+  .logo-sub {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.32em;
+    color: rgba(255,255,255,0.7); font-weight: 400;
+  }
+
+  .nav { display: none; align-items: center; gap: 40px; }
+  @media (min-width: 1024px) { .nav { display: flex; } }
+  .nav a {
+    position: relative; font-size: 14px; letter-spacing: 0.02em;
+    color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.3s;
+  }
+  .nav a:hover { color: white; }
+  .nav a::after {
+    content: ''; position: absolute; bottom: -4px; right: 0;
+    height: 1px; width: 0; background: #CD7F32; transition: width 0.3s;
+  }
+  .nav a:hover::after { width: 100%; }
+
+  .cta-phone {
+    display: none; align-items: center; gap: 8px;
+    border: 1px solid rgba(205,127,50,0.4); padding: 10px 20px;
+    font-size: 14px; letter-spacing: 0.02em; color: white;
+    text-decoration: none; border-radius: 2px; transition: all 0.3s;
+  }
+  @media (min-width: 768px) { .cta-phone { display: flex; } }
+  .cta-phone:hover { border-color: #CD7F32; background: rgba(205,127,50,0.1); }
+
+  .hero {
+    position: relative; z-index: 10;
+    max-width: 1400px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px;
+    padding: 48px 32px 96px;
+  }
+  @media (min-width: 768px) { .hero { padding: 80px 64px 96px; } }
+  @media (min-width: 1024px) { .hero { padding: 80px 96px 96px; } }
+
+  .hero-left { grid-column: span 12; animation: slideUp 0.8s ease-out 0.2s both; }
+  @media (min-width: 1024px) { .hero-left { grid-column: span 7; } }
+
+  .eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+  .eyebrow-line { height: 1px; width: 48px; background: #CD7F32; }
+  .eyebrow-text {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.28em;
+    color: #CD7F32; font-weight: 500;
+  }
+
+  .headline {
+    font-family: 'Frank Ruhl Libre', 'Playfair Display', serif;
+    font-weight: 500; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.05;
+    letter-spacing: -0.02em; margin-bottom: 40px; color: white;
+  }
+  .italic { font-style: italic; color: rgba(255,255,255,0.9); }
+  .headline-underline-wrap { position: relative; display: inline-block; }
+  .headline-underline {
+    position: absolute; bottom: -8px; right: 0; width: 100%; height: 10px;
+  }
+
+  .subcopy {
+    max-width: 600px; font-size: 18px; line-height: 1.7;
+    color: rgba(255,255,255,0.7); font-weight: 300; margin-bottom: 48px;
+  }
+
+  .ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 64px; }
+
+  .btn-primary {
+    display: flex; align-items: center; gap: 12px;
+    background: #CD7F32; color: #0F172A; border: none;
+    padding: 16px 32px; font-size: 14px; font-weight: 500;
+    letter-spacing: 0.02em; border-radius: 2px;
+    font-family: 'Assistant', sans-serif; cursor: pointer; transition: background 0.3s;
+  }
+  .btn-primary:hover { background: #E08B3A; }
+  .btn-primary .arrow { width: 16px; height: 16px; transition: transform 0.3s; }
+  .btn-primary:hover .arrow { transform: translateX(-4px); }
+
+  .btn-secondary {
+    display: flex; align-items: center; gap: 12px;
+    background: transparent; color: white;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 16px 32px; font-size: 14px; letter-spacing: 0.02em;
+    border-radius: 2px; font-family: 'Assistant', sans-serif;
+    cursor: pointer; transition: all 0.3s;
+  }
+  .btn-secondary:hover { border-color: #CD7F32; color: #CD7F32; }
+
+  .expertise-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .expertise-label {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.24em;
+    color: rgba(255,255,255,0.5);
+  }
+  .expertise-header-line { flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
+
+  .expertise-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .pill {
+    border: 1px solid rgba(205,127,50,0.3);
+    padding: 8px 16px; font-size: 14px;
+    color: rgba(255,255,255,0.85); background: transparent;
+    border-radius: 999px; font-family: 'Assistant', sans-serif;
+    cursor: pointer; transition: all 0.3s;
+    opacity: 0; animation: pillIn 0.4s ease-out both;
+  }
+  .pill:hover { border-color: #CD7F32; color: white; background: rgba(205,127,50,0.1); }
+  .pill:nth-child(1) { animation-delay: 0.9s; }
+  .pill:nth-child(2) { animation-delay: 0.94s; }
+  .pill:nth-child(3) { animation-delay: 0.98s; }
+  .pill:nth-child(4) { animation-delay: 1.02s; }
+  .pill:nth-child(5) { animation-delay: 1.06s; }
+  .pill:nth-child(6) { animation-delay: 1.10s; }
+  .pill:nth-child(7) { animation-delay: 1.14s; }
+  .pill:nth-child(8) { animation-delay: 1.18s; }
+  .pill:nth-child(9) { animation-delay: 1.22s; }
+
+  .hero-right {
+    display: none; position: relative; grid-column: span 5;
+    animation: slideUp 0.8s ease-out 0.4s both;
+  }
+  @media (min-width: 1024px) { .hero-right { display: block; } }
+
+  .image-frame { position: relative; height: 100%; min-height: 560px; width: 100%; }
+
+  .image-bg {
+    position: absolute; inset: 0; overflow: hidden; border-radius: 2px;
+    background:
+      linear-gradient(135deg, rgba(15,23,42,0.3) 0%, rgba(15,23,42,0.85) 100%),
+      linear-gradient(180deg, #1a2744 0%, #0F172A 100%);
+  }
+  .image-light {
+    position: absolute; left: 0; top: 0; height: 100%; width: 66%;
+    background: radial-gradient(ellipse at 20% 30%, rgba(205,127,50,0.18), transparent 60%);
+  }
+  .image-verticals { position: absolute; inset: 0; display: flex; }
+  .image-verticals > div { flex: 1; border-left: 1px solid rgba(255,255,255,0.04); }
+  .image-verticals > div:first-child { border-left: none; }
+  .image-shelf-1 { position: absolute; left: 0; right: 0; top: 40%; height: 1px; background: rgba(255,255,255,0.06); }
+  .image-shelf-2 { position: absolute; left: 0; right: 0; top: 55%; height: 1px; background: rgba(255,255,255,0.04); }
+
+  .corner { position: absolute; background: #CD7F32; }
+  .corner-tr-v { right: 0; top: 0; height: 32px; width: 1px; }
+  .corner-tr-h { right: 0; top: 0; height: 1px; width: 32px; }
+  .corner-bl-v { left: 0; bottom: 0; height: 32px; width: 1px; }
+  .corner-bl-h { left: 0; bottom: 0; height: 1px; width: 32px; }
+
+  .credibility-card {
+    position: absolute; left: -24px; bottom: 32px; max-width: 280px;
+    background: #0F172A; padding: 24px; border-radius: 2px;
+    box-shadow: 0 20px 60px -10px rgba(0,0,0,0.6);
+    border: 1px solid rgba(205,127,50,0.25);
+    animation: slideInLeft 0.7s ease-out 1.2s both;
+  }
+  .credibility-number-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; }
+  .credibility-number {
+    font-family: 'Playfair Display', serif; font-weight: 700;
+    font-size: 48px; line-height: 1; color: #CD7F32;
+  }
+  .credibility-years { font-size: 14px; color: rgba(255,255,255,0.6); }
+  .credibility-desc { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.8); }
+  .credibility-location {
+    margin-top: 16px; display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: rgba(255,255,255,0.5);
+  }
+
+  .vertical-label {
+    position: absolute; right: -8px; top: 16px;
+    transform-origin: top right; transform: rotate(90deg);
+    font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.4em; color: rgba(255,255,255,0.3); white-space: nowrap;
+  }
+
+  .scroll-indicator {
+    grid-column: span 12; margin-top: 32px;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    font-size: 12px; color: rgba(255,255,255,0.4);
+    animation: fadeIn 0.6s ease-out 1.6s both;
+  }
+  .scroll-text { letter-spacing: 0.3em; text-transform: uppercase; }
+  .chevron-anim { animation: bounce 2s ease-in-out infinite; }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fadeInDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes slideInLeft { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+  @keyframes pillIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+</style>
+</head>
+<body>
+  <div class="bg-mesh"></div>
+  <div class="bg-grain"></div>
+  <div class="bg-edge-line"></div>
+
+  <header class="header">
+    <div class="logo-wrap">
+      <div class="logo-text">
+        <span class="logo-firm">לביא, ניסים-שלו</span>
+        <svg width="160" height="6" viewBox="0 0 160 6" style="margin: 6px 0;" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="taperGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#CD7F32" stop-opacity="0"/>
+              <stop offset="20%" stop-color="#CD7F32" stop-opacity="1"/>
+              <stop offset="50%" stop-color="#E8A04A" stop-opacity="1"/>
+              <stop offset="80%" stop-color="#CD7F32" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#CD7F32" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M 0 3 Q 40 3 80 3 Q 120 3 160 3" stroke="url(#taperGrad)" stroke-width="2.2" fill="none"/>
+        </svg>
+        <span class="logo-sub">משרד עורכי דין</span>
+      </div>
+      <svg width="56" height="56" viewBox="0 0 56 56" style="display: block;">
+        <rect x="2" y="2" width="52" height="52" fill="none" stroke="#CD7F32" stroke-width="1"/>
+        <rect x="6" y="6" width="44" height="44" fill="none" stroke="#CD7F32" stroke-width="0.5" opacity="0.5"/>
+        <text x="28" y="34" text-anchor="middle" fill="#CD7F32" font-size="18" font-family="'Playfair Display', serif" font-weight="700" letter-spacing="-1">LNS</text>
+        <circle cx="28" cy="12" r="1" fill="#CD7F32"/>
+        <circle cx="22" cy="13" r="0.6" fill="#CD7F32" opacity="0.6"/>
+        <circle cx="34" cy="13" r="0.6" fill="#CD7F32" opacity="0.6"/>
+      </svg>
+    </div>
+
+    <nav class="nav">
+      <a href="#">אודות</a>
+      <a href="#">תחומי עיסוק</a>
+      <a href="#">מאמרים</a>
+      <a href="#">צור קשר</a>
+    </nav>
+
+    <a href="tel:+972" class="cta-phone">
+      <svg style="width:14px;height:14px;color:#CD7F32;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span>ייעוץ ראשוני</span>
+    </a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-left">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">רשלנות רפואית · נזקי גוף</span>
+      </div>
+
+      <h1 class="headline">
+        כשהרפואה כושלת,<br>
+        <span class="italic">המשפט</span>
+        <span class="headline-underline-wrap">
+          חייב להצליח
+          <svg class="headline-underline" viewBox="0 0 300 10" preserveAspectRatio="none">
+            <path d="M2 6 Q 75 2, 150 5 T 298 6" stroke="#CD7F32" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </span>.
+      </h1>
+
+      <p class="subcopy">משרד לביא, ניסים-שלו מתמחה בייצוג נפגעי רשלנות רפואית בישראל. שילוב של ידע רפואי מעמיק, ליטיגציה חדה וליווי אישי — עבור המקרים שבהם התוצאה משנה חיים.</p>
+
+      <div class="ctas">
+        <button class="btn-primary">
+          <span>הערכת תיק חינם</span>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        </button>
+        <button class="btn-secondary">
+          <span>צרו קשר</span>
+          <svg style="width:14px;height:14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </button>
+      </div>
+
+      <div class="expertise-header">
+        <span class="expertise-label">תחומי מומחיות</span>
+        <div class="expertise-header-line"></div>
+      </div>
+
+      <div class="expertise-pills">
+        <button class="pill">רשלנות רפואית</button>
+        <button class="pill">אבחון מאוחר של סרטן</button>
+        <button class="pill">רשלנות מיילדותית</button>
+        <button class="pill">ניתוחים כירורגיים</button>
+        <button class="pill">רשלנות אורתופדית</button>
+        <button class="pill">טעויות באבחון</button>
+        <button class="pill">רשלנות בחדר מיון</button>
+        <button class="pill">נזקי גוף</button>
+        <button class="pill">תביעות ביטוח</button>
+      </div>
+    </div>
+
+    <aside class="hero-right">
+      <div class="image-frame">
+        <div class="image-bg">
+          <div class="image-light"></div>
+          <div class="image-verticals">
+            <div></div><div></div><div></div><div></div><div></div><div></div>
+          </div>
+          <div class="image-shelf-1"></div>
+          <div class="image-shelf-2"></div>
+        </div>
+
+        <div class="corner corner-tr-v"></div>
+        <div class="corner corner-tr-h"></div>
+        <div class="corner corner-bl-v"></div>
+        <div class="corner corner-bl-h"></div>
+
+        <div class="credibility-card">
+          <div class="credibility-number-row">
+            <span class="credibility-number">15</span>
+            <span class="credibility-years">+ שנות</span>
+          </div>
+          <p class="credibility-desc">ניסיון בייצוג נפגעי רשלנות רפואית, עם מאות תיקים שהסתיימו בהצלחה.</p>
+          <div class="credibility-location">
+            <svg style="width:12px;height:12px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>אשקלון · פריסה ארצית</span>
+          </div>
+        </div>
+
+        <div class="vertical-label">Est. Medical Malpractice Law</div>
+      </div>
+    </aside>
+
+    <div class="scroll-indicator">
+      <span class="scroll-text">גלילה</span>
+      <svg class="chevron-anim" style="width:14px;height:14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </section>
+</body>
+</html>
