@@ -93,11 +93,48 @@
             background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
 
-        .hero-logo {
-            width: min(520px, 82%);
-            height: auto;
-            margin-bottom: 48px;
+        /* ── Hero logo block ── */
+        .hero-logo-block {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 52px;
             position: relative;
+            flex-wrap: wrap;
+        }
+
+        .hero-emblem img {
+            width: 130px;
+            height: 130px;
+            display: block;
+        }
+
+        .hero-firm {
+            text-align: right;
+        }
+
+        .hero-firm-name {
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.02em;
+            line-height: 1.15;
+            margin-bottom: 10px;
+        }
+
+        .hero-firm-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to left, var(--gold), transparent);
+            margin-bottom: 10px;
+        }
+
+        .hero-firm-sub {
+            font-size: clamp(1rem, 2.2vw, 1.3rem);
+            font-weight: 300;
+            color: var(--gold);
+            letter-spacing: 0.14em;
         }
 
         .hero-tagline {
@@ -388,7 +425,16 @@
 
     <!-- HERO -->
     <section class="hero">
-        <img src="logo.svg" alt="לביא, ניסים-שלו משרד עורכי דין" class="hero-logo">
+        <div class="hero-logo-block">
+            <div class="hero-firm">
+                <div class="hero-firm-name">לביא, ניסים-שלו</div>
+                <div class="hero-firm-divider"></div>
+                <div class="hero-firm-sub">משרד עורכי דין</div>
+            </div>
+            <div class="hero-emblem">
+                <img src="logo.svg" alt="LNS">
+            </div>
+        </div>
         <div class="hero-tagline">ייצוג מקצועי ואישי</div>
         <h1>נלחם למענך לקבלת <em>הפיצוי המגיע לך</em></h1>
         <p class="hero-sub">ניסיון של שנים בתביעות נזיקין, רשלנות רפואית ותאונות דרכים — לצידך בכל שלב.</p>
